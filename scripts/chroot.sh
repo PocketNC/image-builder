@@ -1589,6 +1589,13 @@ fi
 report_size
 chroot_umount
 
+if [ -n "${ostree_prep_script}" -a -r "${DIR}/${ostree_prep_script}" ] ; then
+	report_size
+	echo "Calling ostree_prep_script script: ${DIR}/${ostree_prep_script}"
+	sudo "${DIR}/${ostree_prep_script}"
+	ostree_prep_script=""
+fi
+
 if [ "x${chroot_COPY_SETUP_SDCARD}" = "xenable" ] ; then
 	echo "Log: copying setup_sdcard.sh related files"
         if [ "x${chroot_custom_setup_sdcard}" = "x" ] ; then
